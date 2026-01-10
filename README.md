@@ -23,10 +23,5 @@ The pet project for checking the validity of junior/trainee positions offers
 Parses data from the website https://www.azubiyo.de and saves it in JSON format.
 The project includes a CLI interface, caching, and Docker containerization.
 
-# Get started with help on how to use it
-docker run my-parser --help
 
-
-========================================================================================
 ATTENTION: This code is intended for educational purposes and non-commercial use only. 
-========================================================================================
