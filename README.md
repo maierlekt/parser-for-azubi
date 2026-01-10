@@ -8,9 +8,6 @@ Das Pet-Projekt zur Überprüfung der Aktualität von Angeboten für Ausbildungs
 Parsiert Daten von der Website https://www.azubiyo.de und speichert sie im JSON-Format.
 Das Projekt umfasst eine CLI-Schnittstelle, Caching und Docker-Containerisierung.
 
-# Start mit Hilfe zur Verwendung
-docker run my-parser --help
-
 ========================================================================================
 
 # AZUBIYO VACANCY CHECKER WITH CACHE
@@ -25,3 +22,4 @@ The project includes a CLI interface, caching, and Docker containerization.
 
 
 ATTENTION: This code is intended for educational purposes and non-commercial use only. 
+
