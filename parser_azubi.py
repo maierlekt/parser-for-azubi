@@ -4,7 +4,6 @@ from bs4 import BeautifulSoup
 def parse_azubiyo():
 
  url = 'https://www.azubiyo.de/ausbildung/koeln/fachinformatiker-systemintegration/'
-
  file = open("azubi.txt", "w", encoding='utf-8') 
   
  html_code = str(urlopen(url).read(),'utf-8')
@@ -78,4 +77,5 @@ def parse_azubiyo():
  file.write(f"\n=== Insgesamt (faktisch!): {total_count} ===")
  return all_vacancies
  file.close()
+
 
