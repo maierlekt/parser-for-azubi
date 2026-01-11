@@ -7,7 +7,6 @@ import sys #für CLI
 
 from parser_azubi import parse_azubiyo
 
-
 def parse_arguments():
     parser = argparse.ArgumentParser(
         description= 'Azubiyo Vacancy Parser mit Cache',
@@ -180,4 +179,5 @@ def main():
     print("=" * 60)
 
 if __name__ == "__main__":    
+
     main()
