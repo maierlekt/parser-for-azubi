@@ -8,12 +8,10 @@ def parse_azubiyo():
   
  html_code = str(urlopen(url).read(),'utf-8')
  soup = BeautifulSoup(html_code, "html.parser")
-#h1
  t = soup.find('title').text
  print("===" + t + "===")
 
  file.write("===" + t + "===" + '\n\n')
-#vacancies + count
  all_vacancies = []
  total_count = 0
 
@@ -77,5 +75,6 @@ def parse_azubiyo():
  file.write(f"\n=== Insgesamt (faktisch!): {total_count} ===")
  return all_vacancies
  file.close()
+
 
 
