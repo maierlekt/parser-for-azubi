@@ -5,18 +5,9 @@ Das Pet-Projekt zur Überprüfung der Aktualität von Angeboten für Ausbildungs
 
 # DIE BESCHREIBUNG
 
-Parsiert Daten von den Websites und speichert sie im JSON-Format.
+Parsiert Daten (2 Parsers) von den Websites und speichert sie im JSON-Format.
 Das Projekt umfasst eine CLI-Schnittstelle und Caching.
 
-│
-│── api 
-│ ├── parser1.py
-│ ├── parser2.py
-│ ├── storage.py
-│ ├── yaml.yaml
-│ ├── requirements.txt
-│── main.py
-│
 
 ========================================================================================
 
@@ -33,6 +24,7 @@ The project includes a CLI interface und caching.
 √ sucsesfully rendered on render.com 
 
 ATTENTION: This code is intended for educational purposes and non-commercial use only! The author is not responsible for any commercial use. 
+
 
 
 
