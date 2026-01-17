@@ -2,26 +2,26 @@ import json
 import os
 from datetime import datetime
 import hashlib
-import argparse #für CLI 
-import sys #für CLI 
+import argparse #CLI
+import sys #CLI
 
 from parser_azubi import parse_azubiyo
+from parser_stellen import parse_stellen
 
 def parse_arguments():
     parser = argparse.ArgumentParser(
-        description= 'Azubiyo Vacancy Parser mit Cache',
+        description='Azubi Vacancy Parser mit Cache',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         add_help=False,
-       epilog="""
-     Hilfe:
-      python main.py                    # checken neue stellenangebote
-      python main.py --all              # zeigen alles
-      python main.py --cache            # cache zeigen
-      python main.py --clear-cache      # cache leeren
+        epilog="""
+Hilfe:
+ python main.py                    # checken neue stellenangebote
+ python main.py --all              # zeigen alles
+ python main.py --cache            # cache zeigen
+ python main.py --clear-cache      # cache leeren
         """
-    ) 
+    )
     
-
     parser.add_argument(
         '--all',
         action='store_true',
@@ -38,7 +38,6 @@ def parse_arguments():
         '--clear-cache',
         action='store_true',
         help='cache leeren'
-    
     )
 
     parser.add_argument(
@@ -47,12 +46,9 @@ def parse_arguments():
         help='hinweis anzeigen'
     )
     
-    return parser.parse_args()     
-
+    return parser.parse_args()
 
 CACHE_FILE = 'vacancies_cache.json'
-
-
 
 def generate_vacancy_id(vacancy_text):
     """
@@ -83,9 +79,8 @@ def save_cache(vacancies_list):
     """cache in JSON"""
     with open(CACHE_FILE, 'w', encoding='utf-8') as f:
         json.dump(vacancies_list, f, ensure_ascii=False, indent=2)
-   
 
-def enrich_vacancy_data(raw_vacancies):
+def enrich_vacancy_data(raw_vacancies, source='azubiyo'):
     """
     daten = id+hash
     """
@@ -98,13 +93,12 @@ def enrich_vacancy_data(raw_vacancies):
        vacancy = {
            'id': generate_vacancy_id(text),
            'text': text.strip(),
-           'source': 'azubiyo',
+           'source': source,
            'first_seen': datetime.now().isoformat()
        }
        enriched.append(vacancy)
    
     return enriched
-    
 
 def main():
     """
@@ -114,7 +108,7 @@ def main():
 
     if args.help:
         print("=" * 60)
-        print("AZUBIYO VACANCY PARSER - HILFE")
+        print("AZUBI VACANCY PARSER - HILFE")
         print("=" * 60)
         print("\nVerwendung:")
         print("  python main.py                    # Neue Stellenangebote prüfen")
@@ -126,15 +120,26 @@ def main():
         return 
     
     print("=" * 60)
-    print("AZUBIYO VACANCY CHECKER MIT CACHE")
+    print("AZUBI VACANCY CHECKER MIT CACHE")
     print("=" * 60)
     
     print("\n[1/4] parsing prozess...")
-    total_count = parse_azubiyo()
-    print(f"    ✓  {len(total_count)} stelleangebote gefunden")
+    azubi_vacancies = parse_azubiyo()
+    stellen_vacancies = parse_stellen()
+    
+    # alles
+    all_vacancies = azubi_vacancies + stellen_vacancies
+    
+    print(f"    ✓  {len(all_vacancies)} stelleangebote gefunden")
     
     print("\n[2/4] verarbeiten daten...")
-    print(f"    ✓  {len(total_count)} bearbeitet")
+    
+    
+    azubi_enriched = enrich_vacancy_data(azubi_vacancies, source='azubiyo')
+    stellen_enriched = enrich_vacancy_data(stellen_vacancies, source='ausbildungsstellen')
+    current_vacancies = azubi_enriched + stellen_enriched
+    
+    print(f"    ✓  {len(current_vacancies)} bearbeitet")
     
     print("\n[3/4] cache laden...")
     cache_dict = load_cache()
@@ -143,7 +148,6 @@ def main():
     print("\n[4/4] vergleichen...")
     new_vacancies = []
     
-    current_vacancies = enrich_vacancy_data(total_count)
     for vacancy in current_vacancies:
         vacancy_id = vacancy['id']
         if vacancy_id not in cache_dict:
@@ -154,18 +158,16 @@ def main():
         print("-" * 60)
         
         for i, vacancy in enumerate(new_vacancies, 1):
-            
-            text_preview = vacancy['text'][:80] + "..." if len(vacancy['text']) > 80 else vacancy['text']
-            print(f"\n{i:2d}. [{vacancy['id']}]")
+            text_preview = vacancy['text'][:150] + "..." if len(vacancy['text']) > 150 else vacancy['text']
+            print(f"\n{i:2d}. [{vacancy['id']}] ({vacancy['source']})")
             print(f"    {text_preview}")
         
         print(f"\n update...")
         
-        
         updated_cache = list(cache_dict.values()) + new_vacancies
         
-        if len(updated_cache) > 100:
-            updated_cache = updated_cache[-100:]
+        if len(updated_cache) > 200:
+            updated_cache = updated_cache[-200:]
         
         save_cache(updated_cache)
         print(f"    ✓ insgesamt im cache {len(updated_cache)}")
@@ -173,11 +175,9 @@ def main():
     else:
         print("\n keine neuen stelleangebotte gefunden")
         
-    
     print("\n" + "=" * 60)
     print("probe abgeschlossen")
     print("=" * 60)
 
 if __name__ == "__main__":    
-
     main()
