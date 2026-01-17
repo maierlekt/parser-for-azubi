@@ -1,5 +1,5 @@
 import json
-import os
+import os 
 from datetime import datetime
 
 CACHE_FILE = 'vacancies_cache.json'
@@ -37,3 +37,4 @@ def update_cache(new_vacancies, cached_vacancies):
         updated = updated[:100]
     
     return updated    
+
