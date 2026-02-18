@@ -57,11 +57,14 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 def main():
+    print("Starting bot...")  # добавь эту строку
     app = Application.builder().token("8301507931:AAFRIt8vfo7v82EyoaV7WFApV3Df8VkNCbM").build()
-    
+
+    print("Adding handlers...")  # и эту
     app.add_handler(CommandHandler("parse", parse))
     app.add_handler(CallbackQueryHandler(button))
-    
+
+    print("Starting polling...")  # и эту
     app.run_polling()
 
 
