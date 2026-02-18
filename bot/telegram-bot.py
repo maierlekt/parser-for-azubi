@@ -57,7 +57,7 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 def main():
-    app = Application.builder().token("8567321893:AAFpRYXilj9fmIQLwv1euRplT3ZaLWgoTnA").build()
+    app = Application.builder().token("8301507931:AAFRIt8vfo7v82EyoaV7WFApV3Df8VkNCbM").build()
     
     app.add_handler(CommandHandler("parse", parse))
     app.add_handler(CallbackQueryHandler(button))
