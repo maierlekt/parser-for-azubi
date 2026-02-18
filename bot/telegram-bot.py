@@ -2,7 +2,7 @@ from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes
 import requests
 
-PARSER_URL = "https://parser-for-azubi-hobby-project.onrender.com/"
+PARSER_URL = "https://parser-for-azubi-hobby-project.onrender.com/parse"
 PAGE_SIZE = 20
 
 
