@@ -9,25 +9,6 @@ PAGE_SIZE = 20
 async def parse(update: Update, context: ContextTypes.DEFAULT_TYPE):
     response = requests.get(PARSER_URL)
     vacancies = response.json()  # список строк
-
-# check!!!!!!!!
-
-    async def parse(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    response = requests.get(PARSER_URL)
-    data = response.json()
-    
-    # отладка - посмотрим что пришло
-    print(f"Received data: {data}")
-    print(f"Type: {type(data)}")
-    
-    # если это словарь - достаём список
-    if isinstance(data, dict):
-        vacancies = data.get("vacancies", [])  # или другой ключ
-    else:
-        vacancies = data
-
-# check!!!!!!!!
-
     
     # сохраняем в память
     context.user_data["vacancies"] = vacancies
