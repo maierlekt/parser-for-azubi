@@ -1,3 +1,5 @@
+Das Projekt ist derzeit aufgrund von Problemen beim Parsing-Prozess auf Eis gelegt. Die Struktur ist jedoch hier dargestellt.
+
 # AZUBIYO VACANCY CHECKER MIT CACHE
 
 Das Pet-Projekt zur Überprüfung der Aktualität von Angeboten für Ausbildungsplätze
