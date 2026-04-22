@@ -10,9 +10,9 @@ PAGE_SIZE = 20
 
 async def parse(update: Update, context: ContextTypes.DEFAULT_TYPE):
     response = requests.get(PARSER_URL)
-    vacancies = response.json()  # список строк
+    vacancies = response.json() 
     
-    # сохраняем в память
+   
     context.user_data["vacancies"] = vacancies
     context.user_data["page"] = 0
     
@@ -29,7 +29,7 @@ async def send_page(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     text = "\n\n".join(chunk)
     
-    # есть ли ещё вакансии?
+
     has_more = end < len(vacancies)
     
     keyboard = []
@@ -59,14 +59,14 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 def main():
-    print("Starting bot...")  # добавь эту строку
-    app = Application.builder().token("8301507931:AAFRIt8vfo7v82EyoaV7WFApV3Df8VkNCbM").build()
+    print("Starting bot...")  
+    app = Application.builder().token("SECRET").build()
 
-    print("Adding handlers...")  # и эту
+    print("Adding handlers...")  
     app.add_handler(CommandHandler("parse", parse))
     app.add_handler(CallbackQueryHandler(button))
 
-    print("Starting polling...")  # и эту
+    print("Starting polling...") 
     app.run_polling()
 
 
